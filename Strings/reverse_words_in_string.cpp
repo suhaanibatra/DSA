@@ -1,32 +1,34 @@
 class Solution {
 public:
     string reverseWords(string s) {
-        int n = s.length();
+        int len = s.length();
         string temp = "";
         string ans = "";
 
-        for(int i = 0; i < n; i++){
+        for(int i = 0; i < len; i++){
             char ch = s[i];
-
             if(ch != ' '){
-                //not a space -- add to temp
                 temp += ch;
             }
-
-            else if(ch == ' '){
-                if(ans != ""){
-                    if(temp.length() != 0) ans = temp + " " + ans;
-                }
-                else ans = temp;
+            else if(temp != ""){
+                reverse(temp.begin(), temp.end());
+                ans += temp;
+                ans = ans + " ";
                 temp = "";
             }
-        }    
+        }
 
         if(temp != ""){
-            if(ans != "") ans = temp + " " + ans;
-            else ans = temp;
+            reverse(temp.begin(), temp.end());
+            ans += temp;
+            temp = "";
         }
-        if(ans[ans.size() - 1] == ' ') ans.pop_back();
+
+        while(ans.back() == ' '){
+            ans.pop_back();
+        }
+
+        reverse(ans.begin(), ans.end());
         return ans;
     }
 };
